@@ -80,7 +80,8 @@ class DropDownTextField extends StatefulWidget {
       this.listPadding,
       this.listTextStyle,
       this.keyboardType,
-      this.autovalidateMode})
+      this.autovalidateMode,
+      this.onTapFunction})
       : assert(
           !(initialValue != null && controller != null),
           "you cannot add both initialValue and singleController,\nset initial value using controller \n\tEg: SingleValueDropDownController(data:initial value) ",
@@ -127,7 +128,8 @@ class DropDownTextField extends StatefulWidget {
       this.listPadding,
       this.listTextStyle,
       this.checkBoxProperty,
-      this.autovalidateMode})
+      this.autovalidateMode,
+      this.onTapFunction})
       : assert(initialValue == null || controller == null,
             "you cannot add both initialValue and multiController\nset initial value using controller\n\tMultiValueDropDownController(data:initial value)"),
         assert(
@@ -248,6 +250,8 @@ class DropDownTextField extends StatefulWidget {
 
   ///customize checkbox property
   final CheckBoxProperty? checkBoxProperty;
+
+  final void onTapFunction;
 
   @override
   _DropDownTextFieldState createState() => _DropDownTextFieldState();
@@ -573,6 +577,7 @@ class _DropDownTextFieldState extends State<DropDownTextField>
               }
             },
             onTap: () {
+              widget.onTapFunction;
               _searchAutofocus = widget.searchAutofocus;
               if (!_isExpanded) {
                 if (_dropDownList.isNotEmpty) {
