@@ -251,7 +251,7 @@ class DropDownTextField extends StatefulWidget {
   ///customize checkbox property
   final CheckBoxProperty? checkBoxProperty;
 
-  final void onTapFunction;
+  final void Function()? onTapFunction;
 
   @override
   _DropDownTextFieldState createState() => _DropDownTextFieldState();
