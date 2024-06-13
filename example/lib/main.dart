@@ -99,6 +99,7 @@ class _TestPageState extends State<TestPage> {
                       return null;
                     }
                   },
+                  onTapFunction: () => print("asas"),
                   dropDownItemCount: 6,
                   dropDownList: const [
                     DropDownValueModel(name: 'name1', value: "value1"),

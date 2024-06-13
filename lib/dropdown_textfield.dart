@@ -577,7 +577,7 @@ class _DropDownTextFieldState extends State<DropDownTextField>
               }
             },
             onTap: () {
-              widget.onTapFunction;
+              if (widget.onTapFunction != null) widget.onTapFunction!();
               _searchAutofocus = widget.searchAutofocus;
               if (!_isExpanded) {
                 if (_dropDownList.isNotEmpty) {
