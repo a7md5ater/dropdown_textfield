@@ -51,38 +51,38 @@ class CheckBoxProperty {
 }
 
 class DropDownTextField extends StatefulWidget {
-  const DropDownTextField(
-      {Key? key,
-      this.controller,
-      this.initialValue,
-      required this.dropDownList,
-      this.padding,
-      this.textStyle,
-      this.onChanged,
-      this.validator,
-      this.isEnabled = true,
-      this.enableSearch = false,
-      this.readOnly = true,
-      this.dropdownRadius = 12,
-      this.textFieldDecoration,
-      this.dropDownIconProperty,
-      this.dropDownItemCount = 6,
-      this.searchTextStyle,
-      this.searchFocusNode,
-      this.textFieldFocusNode,
-      this.searchAutofocus = false,
-      this.searchDecoration,
-      this.searchShowCursor,
-      this.searchKeyboardType,
-      this.listSpace = 0,
-      this.clearOption = true,
-      this.clearIconProperty,
-      this.listPadding,
-      this.listTextStyle,
-      this.keyboardType,
-      this.autovalidateMode,
-      this.onTapFunction})
-      : assert(
+  const DropDownTextField({
+    Key? key,
+    this.controller,
+    this.initialValue,
+    required this.dropDownList,
+    this.padding,
+    this.textStyle,
+    this.onChanged,
+    this.validator,
+    this.isEnabled = true,
+    this.enableSearch = false,
+    this.readOnly = true,
+    this.dropdownRadius = 12,
+    this.textFieldDecoration,
+    this.dropDownIconProperty,
+    this.dropDownItemCount = 6,
+    this.searchTextStyle,
+    this.searchFocusNode,
+    this.textFieldFocusNode,
+    this.searchAutofocus = false,
+    this.searchDecoration,
+    this.searchShowCursor,
+    this.searchKeyboardType,
+    this.listSpace = 0,
+    this.clearOption = true,
+    this.clearIconProperty,
+    this.listPadding,
+    this.listTextStyle,
+    this.keyboardType,
+    this.autovalidateMode,
+    // this.onTapFunction,
+  })  : assert(
           !(initialValue != null && controller != null),
           "you cannot add both initialValue and singleController,\nset initial value using controller \n\tEg: SingleValueDropDownController(data:initial value) ",
         ),
@@ -102,35 +102,35 @@ class DropDownTextField extends StatefulWidget {
         submitButtonText = null,
         submitButtonTextStyle = null,
         super(key: key);
-  const DropDownTextField.multiSelection(
-      {Key? key,
-      this.controller,
-      this.displayCompleteItem = false,
-      this.initialValue,
-      required this.dropDownList,
-      this.padding,
-      this.textStyle,
-      this.onChanged,
-      this.validator,
-      this.isEnabled = true,
-      this.dropdownRadius = 12,
-      this.dropDownIconProperty,
-      this.textFieldDecoration,
-      this.dropDownItemCount = 6,
-      this.searchFocusNode,
-      this.textFieldFocusNode,
-      this.listSpace = 0,
-      this.clearOption = true,
-      this.clearIconProperty,
-      this.submitButtonColor,
-      this.submitButtonText,
-      this.submitButtonTextStyle,
-      this.listPadding,
-      this.listTextStyle,
-      this.checkBoxProperty,
-      this.autovalidateMode,
-      this.onTapFunction})
-      : assert(initialValue == null || controller == null,
+  const DropDownTextField.multiSelection({
+    Key? key,
+    this.controller,
+    this.displayCompleteItem = false,
+    this.initialValue,
+    required this.dropDownList,
+    this.padding,
+    this.textStyle,
+    this.onChanged,
+    this.validator,
+    this.isEnabled = true,
+    this.dropdownRadius = 12,
+    this.dropDownIconProperty,
+    this.textFieldDecoration,
+    this.dropDownItemCount = 6,
+    this.searchFocusNode,
+    this.textFieldFocusNode,
+    this.listSpace = 0,
+    this.clearOption = true,
+    this.clearIconProperty,
+    this.submitButtonColor,
+    this.submitButtonText,
+    this.submitButtonTextStyle,
+    this.listPadding,
+    this.listTextStyle,
+    this.checkBoxProperty,
+    this.autovalidateMode,
+    // this.onTapFunction,
+  })  : assert(initialValue == null || controller == null,
             "you cannot add both initialValue and multiController\nset initial value using controller\n\tMultiValueDropDownController(data:initial value)"),
         assert(
           !(controller != null &&
@@ -251,7 +251,7 @@ class DropDownTextField extends StatefulWidget {
   ///customize checkbox property
   final CheckBoxProperty? checkBoxProperty;
 
-  final void Function()? onTapFunction;
+  // final void Function()? onTapFunction;
 
   @override
   _DropDownTextFieldState createState() => _DropDownTextFieldState();
@@ -539,6 +539,8 @@ class _DropDownTextFieldState extends State<DropDownTextField>
     setState(() {});
   }
 
+  // bool showErrorMessage = true;
+
   @override
   Widget build(BuildContext context) {
     _isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
@@ -575,20 +577,34 @@ class _DropDownTextFieldState extends State<DropDownTextField>
               if (!isOverlayTap) {
                 _textFieldFocusNode.unfocus();
               }
+              // setState(() {
+              //   showErrorMessage = true;
+              // });
             },
             onTap: () {
-              if (widget.onTapFunction != null) widget.onTapFunction!();
+              // !showErrorMessage;
+              // setState(() {
+              //   showErrorMessage = false;
+              // });
+              // if (widget.onTapFunction != null) widget.onTapFunction!();
               _searchAutofocus = widget.searchAutofocus;
               if (!_isExpanded) {
                 if (_dropDownList.isNotEmpty) {
                   _showOverlay();
                 }
               } else {
-                if (widget.readOnly) hideOverlay();
+                if (widget.readOnly) {
+                  hideOverlay();
+                  // setState(() {
+                  //   showErrorMessage = true;
+                  // });
+                }
               }
             },
-            validator: (value) =>
-                widget.validator != null ? widget.validator!(value) : null,
+            validator: (value) => widget.validator != null
+                // && showErrorMessage
+                ? widget.validator!(value)
+                : null,
             decoration: widget.textFieldDecoration != null
                 ? widget.textFieldDecoration!.copyWith(
                     suffixIcon: (_cnt.text.isEmpty || !widget.clearOption)
@@ -667,54 +683,63 @@ class _DropDownTextFieldState extends State<DropDownTextField>
         ? (dropdownListHeight -
             (posFromTop - MediaQuery.of(context).padding.top - 15))
         : 0;
-
     final double htPos = posFromBot < ht
         ? size.height - 100 + topPaddingHeight
         : _isScrollPadding
             ? size.height - (_keyboardHeight - posFromBot)
-            : size.height;
+            : size.height == 48
+                ? size.height
+                : size.height - 25;
+
     if (_isOutsideClickOverlay) {
       _openOutSideClickOverlay(context);
     }
     _entry = OverlayEntry(
-      builder: (context) => Positioned(
-          width: size.width,
-          child: CompositedTransformFollower(
-              targetAnchor: posFromBot < ht
-                  ? Alignment.bottomCenter
-                  : Alignment.topCenter,
-              followerAnchor: posFromBot < ht
-                  ? Alignment.bottomCenter
-                  : Alignment.topCenter,
-              link: _layerLink,
-              showWhenUnlinked: false,
-              offset: Offset(
-                0,
-                posFromBot < ht
-                    ? htPos - widget.listSpace
-                    : htPos + widget.listSpace,
-              ),
-              child: AnimatedBuilder(
-                animation: _controller.view,
-                builder: buildOverlay,
-              ))),
+      builder: (context) {
+        print("OVERLAY1 ${posFromBot < ht}");
+        return Positioned(
+            top: 0.0,
+            width: size.width,
+            child: CompositedTransformFollower(
+                targetAnchor: posFromBot < ht
+                    ? Alignment.bottomCenter
+                    : Alignment.topCenter,
+                followerAnchor: posFromBot < ht
+                    ? Alignment.bottomCenter
+                    : Alignment.topCenter,
+                link: _layerLink,
+                showWhenUnlinked: false,
+                offset: Offset(
+                  0,
+                  posFromBot < ht
+                      ? htPos - widget.listSpace
+                      : htPos + widget.listSpace,
+                ),
+                child: AnimatedBuilder(
+                  animation: _controller.view,
+                  builder: buildOverlay,
+                )));
+      },
     );
     _entry2 = OverlayEntry(
-      builder: (context) => Positioned(
-          width: size.width,
-          child: CompositedTransformFollower(
-              targetAnchor: Alignment.bottomCenter,
-              followerAnchor: Alignment.bottomCenter,
-              link: _layerLink,
-              showWhenUnlinked: false,
-              offset: Offset(
-                0,
-                htPos,
-              ),
-              child: AnimatedBuilder(
-                animation: _controller.view,
-                builder: buildOverlay,
-              ))),
+      builder: (context) {
+        print("OVERLAY2");
+        return Positioned(
+            width: size.width,
+            child: CompositedTransformFollower(
+                targetAnchor: Alignment.bottomCenter,
+                followerAnchor: Alignment.bottomCenter,
+                link: _layerLink,
+                showWhenUnlinked: false,
+                offset: Offset(
+                  0,
+                  htPos,
+                ),
+                child: AnimatedBuilder(
+                  animation: _controller.view,
+                  builder: buildOverlay,
+                )));
+      },
     );
     overlay.insert(_isScrollPadding ? _entry2! : _entry!);
   }
@@ -758,6 +783,9 @@ class _DropDownTextFieldState extends State<DropDownTextField>
       _isExpanded = false;
     });
     _textFieldFocusNode.unfocus();
+    // setState(() {
+    //   showErrorMessage = true;
+    // });
   }
 
   void shiftOverlayEntry1to2() {
