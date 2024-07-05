@@ -46,7 +46,7 @@ class TestPage extends StatefulWidget {
 class _TestPageState extends State<TestPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   FocusNode textFieldFocusNode = FocusNode();
-  final SingleValueDropDownController _cnt = SingleValueDropDownController();
+  final MultiValueDropDownController _cnt = MultiValueDropDownController();
 
   @override
   void dispose() {

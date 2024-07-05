@@ -101,6 +101,7 @@ class DropDownTextField extends StatefulWidget {
         submitButtonColor = null,
         submitButtonText = null,
         submitButtonTextStyle = null,
+        selectionColor = null,
         super(key: key);
   const DropDownTextField.multiSelection({
     Key? key,
@@ -129,7 +130,7 @@ class DropDownTextField extends StatefulWidget {
     this.listTextStyle,
     this.checkBoxProperty,
     this.autovalidateMode,
-    // this.onTapFunction,
+    this.selectionColor,
   })  : assert(initialValue == null || controller == null,
             "you cannot add both initialValue and multiController\nset initial value using controller\n\tMultiValueDropDownController(data:initial value)"),
         assert(
@@ -251,6 +252,7 @@ class DropDownTextField extends StatefulWidget {
   ///customize checkbox property
   final CheckBoxProperty? checkBoxProperty;
 
+  final Color? selectionColor;
   // final void Function()? onTapFunction;
 
   @override
@@ -894,6 +896,7 @@ class _DropDownTextFieldState extends State<DropDownTextField>
                         clearIconProperty: widget.clearIconProperty,
                       )
                     : MultiSelection(
+                        selectionColor: widget.selectionColor,
                         buttonTextStyle: widget.submitButtonTextStyle,
                         buttonText: widget.submitButtonText,
                         buttonColor: widget.submitButtonColor,
@@ -935,7 +938,8 @@ class _DropDownTextFieldState extends State<DropDownTextField>
                           }
 
                           hideOverlay();
-
+                          // WidgetsBinding.instance
+                          //     .addPostFrameCallback((_) => setState(() {}));
                           setState(() {});
                         },
                         checkBoxProperty: widget.checkBoxProperty,

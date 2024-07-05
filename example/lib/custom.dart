@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class CustomDropDownTextField extends StatelessWidget {
   final List<DropDownValueModel> list;
-  final SingleValueDropDownController controller;
+  final MultiValueDropDownController controller;
   final String? hint;
   final void Function(dynamic)? onChanged;
   final Color? fillColor;
@@ -21,12 +21,14 @@ class CustomDropDownTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DropDownTextField(
+    return DropDownTextField.multiSelection(
       dropdownRadius: 8,
+      displayCompleteItem: true,
       dropDownItemCount: list.length,
       listPadding: ListPadding(bottom: 15, top: 15),
       clearOption: false,
       controller: controller,
+      selectionColor: Colors.red,
       dropDownIconProperty: IconProperty(
         icon: Icons.keyboard_arrow_down,
         color: Colors.black,
